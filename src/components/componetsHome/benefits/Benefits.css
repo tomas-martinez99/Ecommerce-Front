@@ -1,0 +1,38 @@
+.benefits-container {
+  display: flex;
+  justify-content: center;
+  align-items: stretch;
+  gap: 32px;
+  background: #fff;
+  padding: 32px 0;
+  margin: 32px 0;
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+}
+
+.benefit-item {
+  flex: 1;
+  text-align: center;
+  border-right: 1px solid #eee;
+  padding: 0 24px;
+}
+
+.benefit-item:last-child {
+  border-right: none;
+}
+
+.benefit-icon {
+  color: #e81123;
+  margin-bottom: 12px;
+}
+
+.benefit-item h5 {
+  font-weight: 600;
+  margin-bottom: 8px;
+}
+
+.benefit-item p {
+  color: #555;
+  font-size: 15px;
+  margin-bottom: 0;
+}

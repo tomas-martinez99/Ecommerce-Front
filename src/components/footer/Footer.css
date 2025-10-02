@@ -1,0 +1,81 @@
+.footer-main {
+  background: #e81123;
+  color: #fff;
+  padding: 0 0 16px 0;
+  font-size: 15px;
+}
+
+.footer-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  padding: 32px 5vw 16px 5vw;
+  border-bottom: 0.25px solid #fff;
+  flex-wrap: wrap;
+  gap: 32px;
+}
+
+.footer-logo img {
+  display: block;
+  margin-bottom: 12px;
+}
+
+.footer-categories, .footer-contact {
+  min-width: 180px;
+}
+
+.footer-categories h6,
+.footer-contact h6 {
+  font-size: 1rem;
+  margin-bottom: 8px;
+  font-weight: 700;
+}
+
+.footer-categories ul,
+.footer-contact ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.footer-categories li,
+.footer-contact li {
+  margin-bottom: 6px;
+}
+
+.footer-categories a,
+.footer-contact a {
+  color: #fff;
+  text-decoration: none;
+  transition: color 0.2s;
+}
+
+.footer-categories a:hover,
+.footer-contact a:hover {
+  color: #e81123;
+}
+
+.footer-contact svg {
+  margin-right: 6px;
+  vertical-align: middle;
+}
+
+.footer-bottom {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px 5vw 0 5vw;
+  font-size: 13px;
+  flex-wrap: wrap;
+  gap: 16px;
+}
+
+.footer-links a {
+  color: #bbb;
+  margin: 0 4px;
+  text-decoration: none;
+}
+
+.footer-links a:hover {
+  color: #e81123;
+}

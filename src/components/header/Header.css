@@ -1,0 +1,38 @@
+.btn1 {
+    background-color: #e81123;
+    color: #fff;
+    border: 2px solid #fff;
+    font-weight: bold;
+    transition: background 0.05s, color 0.05s;
+}
+
+.btn1:hover {
+    background-color: #fff;
+    color: #e81123;
+    border: 2px solid #e81123;
+}
+
+.btn2 {
+    border: none !important;
+    background:#e81123 ;
+    color: #fff;
+    font-weight: bold;
+    transition: background 0.1s, color 0.1s;
+    border-radius: 8px;
+}
+
+.btn2:hover {
+    background-color: #fff;
+    color: #e81123;
+    border: 2px solid #e81123;
+}
+
+.search:focus {
+    border: 2px solid #fff;
+    outline: none;
+    box-shadow: none;
+}
+.header {
+  margin-bottom: 0;
+  padding-bottom: 0; /* Esto genera espacio debajo del header */
+}
