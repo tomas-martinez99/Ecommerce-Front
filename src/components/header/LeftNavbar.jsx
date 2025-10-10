@@ -7,7 +7,7 @@ const categories = [
   { name: 'Listado de productos', href: '/dashboard', icon: <FaBoxOpen /> },
   { name: 'Usuarios', href: '/productos', icon: <FaUsers /> },
   { name: 'Pedidos', href: '/pedidos', icon: <FaShoppingCart /> },
-  { name: 'Proveedores', href: '/ordenes', icon: <FaTruck /> },
+  { name: 'Proveedores', href: '/providerList', icon: <FaTruck /> },
   { name: 'Estadisticas', href: '/usuarios', icon: <FaChartBar /> },
 ];
 
