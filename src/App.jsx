@@ -6,6 +6,7 @@ import ProductList from './components/componentsProducts/productList/ProductList
 import MainLatout from './components/layout/MainLatout'
 import ProviderList from './components/componentsSistem/componetsProvider/provider/ProviderList'
 import AdminLayout from './components/layout/AdminLayout'
+import ProductListAdmin from './components/componentsSistem/componetnsProductsAdmin/ProductListAdmin/ProductListAdmin'
 
 
 
@@ -29,6 +30,11 @@ function App() {
         <Route path="/providerList" element={
           <AdminLayout>
             <ProviderList/>
+          </AdminLayout>} />
+
+          <Route path="/productListAdmin" element={
+          <AdminLayout>
+            <ProductListAdmin/>
           </AdminLayout>} />
       </Routes>
 

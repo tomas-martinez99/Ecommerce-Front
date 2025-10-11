@@ -6,7 +6,9 @@ const AdminLayout = ({children}) => {
   return (
     <div>
         <LeftNavbar />
+        <div style={{ marginLeft: '100px' }}>
             {children}
+        </div>
 
 
     </div>
