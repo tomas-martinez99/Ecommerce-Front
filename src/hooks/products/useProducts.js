@@ -11,6 +11,15 @@ export function useProducts(params) {
   });
 }
 
+export function useProductsProvider(params) {
+  return useQuery({
+    queryKey: ["products", params],
+    queryFn: () => productService.getAllWhitProvider(params),
+    keepPreviousData: true,
+    staleTime: 1000 * 60,
+  });
+}
+
 export function useProduct(id) {
   return useQuery({
     queryKey: ["product", id],
