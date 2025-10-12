@@ -37,6 +37,16 @@ export const productService = {
     }
   },
 
+  getAllWhitProvider: async (params) => {
+    try {
+      const { data } = await api.get(`${BASE}/admin`, { params });
+      return data;
+    } catch (err) {
+      console.error("productService.getAllWithProvider error:", err);
+      throw err;
+    }
+  },
+
   // GET /products/:id
   getById: async (id) => {
     const { data } = await api.get(`${BASE}/${id}`);
@@ -45,9 +55,21 @@ export const productService = {
 
   // POST /products
   // payload: objeto con los campos de creación (sin id)
-  create: async (payload) => {
-    const { data } = await api.post(BASE, payload);
-    return data; // puede devolver el recurso creado o el id
+ create: async (payload) => {
+    try {
+      const { data, status } = await api.post('/Product', payload);
+      if (status < 200 || status >= 300) {
+        throw { message: `HTTP ${status}`, status };
+      }
+      return data;
+    } catch (err) {
+      const normalized = {
+        message: err?.message ?? err?.response?.data?.message ?? "Error al crear producto",
+        status: err?.status ?? err?.response?.status ?? null,
+        details: err?.response?.data ?? null,
+      };
+      throw normalized;
+    }
   },
 
   // PUT /products/:id
