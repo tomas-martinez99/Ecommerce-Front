@@ -29,4 +29,6 @@ export const providerService = {
             console.error("productService.getAll error:", normalized);
             throw normalized;
         }
-    }};
+    }
+
+};

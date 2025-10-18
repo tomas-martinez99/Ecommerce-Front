@@ -80,7 +80,22 @@ export const productService = {
 
   // DELETE /products/:id
   remove: async (id) => {
-    const { data } = await api.delete(`${BASE}/${id}`);
-    return data;
+    try {
+      if (!id) throw new Error('ID requerido para eliminar');
+      const { data, status } = await api.delete(`${BASE}/${id}`);
+      if (status < 200 || status >= 300) {
+        throw { message: `HTTP ${status}`, status, details: data };
+      }
+      console.log(`productService.remove: eliminado id=${id}`, data);
+      return data;
+    } catch (err) {
+      const normalized = {
+        message: err?.message ?? err?.response?.data?.message ?? "Error al eliminar producto",
+        status: err?.status ?? err?.response?.status ?? null,
+        details: err?.response?.data ?? null,
+      };
+      console.error("productService.remove error:", normalized);
+      throw normalized;
+    }
   },
 };
