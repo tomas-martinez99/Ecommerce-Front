@@ -29,4 +29,52 @@ export const providerService = {
             console.error("productService.getAll error:", normalized);
             throw normalized;
         }
-    }};
+    },
+
+    getById: async (id) => {
+        try {
+            const { data } = await api.get(`${BASE}/${id}`);
+            return data;
+        } catch (err) {
+            const normalized = {
+                message: err?.message ?? err?.response?.data?.message ?? "Error al obtener proveedor",
+                status: err?.status ?? err?.response?.status ?? null,
+                details: err?.response?.data ?? null,
+            };
+            throw normalized;
+        }
+    },
+
+    create: async (payload) => {
+        try {
+            const { data, status } = await api.post('/Provider', payload);
+            if (status < 200 || status >= 300) {
+                throw { message: `HTTP ${status}`, status };
+            }
+            return data;
+        } catch (err) {
+            const normalized = {
+                message: err?.message ?? err?.response?.data?.message ?? "Error al crear proveedor",
+                status: err?.status ?? err?.response?.status ?? null,
+                details: err?.response?.data ?? null,
+            };
+            throw normalized;
+        }
+    },
+
+    update: async (id, payload) => {
+        try {
+            const { data, status } = await api.put(`${BASE}/${id}`, payload);
+            if (status < 200 || status >= 300) throw { message: `HTTP ${status}`, status };
+            return data;
+        } catch (err) {
+            const normalized = {
+                message: err?.message ?? err?.response?.data?.message ?? "Error al actualizar proveedor",
+                status: err?.status ?? err?.response?.status ?? null,
+                details: err?.response?.data ?? null,
+            };
+            console.error("providerService.update error:", normalized);
+            throw normalized;
+        }
+    }
+};
