@@ -157,7 +157,7 @@ export default function ProductListAdmin() {
                                             <Button
                                                 variant="outline-danger"
                                                 size="sm"
-                                                onClick={() => handleDeleteClick(p)} // <-- cambió aquí
+                                                onClick={() => handleDeleteClick(p)} 
                                             >
                                                 <FaTrash />
                                             </Button>

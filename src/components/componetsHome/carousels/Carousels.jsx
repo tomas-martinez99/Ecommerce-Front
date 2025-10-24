@@ -1,8 +1,8 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import Carousel from 'react-bootstrap/Carousel';
-import carrusel01 from '../../../carouselsImg/carrusel01.jpg'
-import carrusel02 from '../../../carouselsImg/carrusel02.jpg'
+import carrusel01 from '/public/carouselsImg/carrusel01.jpg'
+import carrusel02 from '/public/carouselsImg/carrusel02.jpg'
 
 
 const Carousels = () => {
