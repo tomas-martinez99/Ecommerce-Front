@@ -4,7 +4,7 @@ import './LeftNavbar.css';
 import { FaCog, FaUsers, FaBoxOpen, FaShoppingCart, FaTruck,FaChartBar } from 'react-icons/fa';
 
 const categories = [
-  { name: 'Listado de productos', href: '/producListAdmin', icon: <FaBoxOpen /> },
+  { name: 'Listado de productos', href: '/productListAdmin', icon: <FaBoxOpen /> },
   { name: 'Usuarios', href: '/productos', icon: <FaUsers /> },
   { name: 'Pedidos', href: '/pedidos', icon: <FaShoppingCart /> },
   { name: 'Proveedores', href: '/providerList', icon: <FaTruck /> },
