@@ -48,10 +48,10 @@ export const productService = {
   },
 
   // GET /products/:id
-  getById: async (id) => {
-    const { data } = await api.get(`${BASE}/${id}`);
-    return data;
-  },
+ getById : async (id) => {
+  const res = await api.get(`${BASE}/${id}`);
+  return res.data;
+},
 
   // POST /products
   // payload: objeto con los campos de creación (sin id)

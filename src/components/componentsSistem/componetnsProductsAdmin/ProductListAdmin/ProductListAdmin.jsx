@@ -7,6 +7,7 @@ import AddProduct from '../addProduct/AddProduct.jsx';
 import { useProviders } from '../../../../hooks/providers/useProviders.js';
 import UpdateProduct from '../updateProduct/UpdateProduct.jsx';
 import ConfirmDelete from '../../confirmDelete/ConfirmDelete.jsx';
+import ImgModal from '../imgModal/ImgModal';
 
 
 const DEBOUNCE_MS = 400;
@@ -21,6 +22,8 @@ export default function ProductListAdmin() {
     const [showEditModal, setShowEditModal] = useState(false);
     const [showConfirm, setShowConfirm] = useState(false);
     const [productToDelete, setProductToDelete] = useState(null);
+    const [showImageModal, setShowImageModal] = useState(false);
+    const [imageProduct, setImageProduct] = useState(null);
 
     const { mutate: updateProduct } = useUpdateProduct();
     const { mutate: deleteProduct, isLoading: isDeleting, mutateAsync: deleteProductAsync } = useDeleteProduct();
@@ -141,9 +144,15 @@ export default function ProductListAdmin() {
                                         <td>{p.stock}</td>
                                         <td>{p.brand}</td>
                                         <td>{p.familyGroup}</td>
-                                        <td><Button variant="outline" size="sm">
-                                            <FaCamera />
-                                        </Button></td>
+                                        <td>
+                                            <Button
+                                                variant="outline"
+                                                size="sm"
+                                                onClick={() => { setImageProduct(p.id); setShowImageModal(true); }}
+                                            >
+                                                <FaCamera />
+                                            </Button>
+                                        </td>
                                         <td><Button variant="outline"
                                             size="sm"
                                             onClick={() => {
@@ -157,7 +166,7 @@ export default function ProductListAdmin() {
                                             <Button
                                                 variant="outline-danger"
                                                 size="sm"
-                                                onClick={() => handleDeleteClick(p)} 
+                                                onClick={() => handleDeleteClick(p)}
                                             >
                                                 <FaTrash />
                                             </Button>
@@ -187,6 +196,12 @@ export default function ProductListAdmin() {
                     itemName={productToDelete?.productName}
                     loading={isDeleting}
                 />
+                <ImgModal
+                    show={showImageModal}
+                    onHide={() => { setShowImageModal(false); setImageProduct(null); }}
+                    productId={imageProduct}
+                />
+
             </div>
         </div >
     );
