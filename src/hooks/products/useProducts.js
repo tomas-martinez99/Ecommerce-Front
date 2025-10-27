@@ -20,12 +20,13 @@ export function useProductsProvider(params) {
   });
 }
 
-export function useProduct(id) {
+export function useProductById(id) {
   return useQuery({
     queryKey: ["product", id],
     queryFn: () => productService.getById(id),
-    enabled: !!id,
-    staleTime: 1000 * 60,
+    enabled: !!id,          // solo ejecuta si hay id válido
+    staleTime: 1000 * 60,   // cachea 1 minuto
+    retry: 1,               // reintenta una vez si falla
   });
 }
 

@@ -5,6 +5,7 @@ import { useCreateProduct } from '../../../../hooks/products/useProducts';
 
 const AddProduct = ({ show, onHide, providers, refetch }) => {
     const [form, setForm] = useState({
+        SKU: '',
         productName: '',
         description: '',
         price: '',
@@ -22,9 +23,20 @@ const AddProduct = ({ show, onHide, providers, refetch }) => {
     };
     const handleSubmit = (e) => {
         e.preventDefault();
+
         console.log("Datos enviados:", form);
         mutate(form, {
             onSuccess: () => {
+                setForm({
+                    productName: '',
+                    description: '',
+                    price: '',
+                    cost: '',
+                    stock: '',
+                    providerId: '',
+                    brand: '',
+                    familyGroup: ''
+                })
                 if (refetch) refetch();
                 onHide();
             },
@@ -33,15 +45,36 @@ const AddProduct = ({ show, onHide, providers, refetch }) => {
             }
         });
     }
+     const handleClose = () => {
+            setForm({
+                productName: '',
+                description: '',
+                price: '',
+                cost: '',
+                stock: '',
+                providerId: '',
+                brand: '',
+                familyGroup: ''
+            });
+            onHide();
+        };
 
     return (
         <div>
-            <Modal show={show} onHide={onHide} centered>
+            <Modal show={show} onHide={handleClose} centered>
                 <Modal.Header closeButton>
                     <Modal.Title>Crear producto</Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
                     <Form onSubmit={handleSubmit}>
+                        <Form.Group className="mb-3">
+                            <Form.Control
+                                name='SKU'
+                                placeholder="Codigo del producto"
+                                value={form.SKU}
+                                onChange={handleChange}
+                            />
+                        </Form.Group>
                         <Form.Group className="mb-3">
                             <Form.Control
                                 name='productName'

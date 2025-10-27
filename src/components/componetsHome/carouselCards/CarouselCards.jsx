@@ -1,6 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import { Carousel, Card, Row, Col,Badge, Spinner, Button } from 'react-bootstrap';
+import { Carousel, Card, Row, Col, Badge, Spinner, Button } from 'react-bootstrap';
 import './CarouselCards.css';
 
 const DEFAULT_IMG = '/public/productImg/ImgDefault.jpg';
@@ -10,7 +10,8 @@ const chunkArray = (arr = [], size = 4) => {
   for (let i = 0; i < arr.length; i += size) {
     chunks.push(arr.slice(i, i + size));
   }
-  return chunks;};
+  return chunks;
+};
 
 const CarouselCards = ({ products = [], loading = false, error = null, productsPerSlide = 4, onAddToCart, onProductClick }) => {
   const items = Array.isArray(products) ? products : Array.isArray(products?.items) ? products.items : [];
@@ -40,8 +41,8 @@ const CarouselCards = ({ products = [], loading = false, error = null, productsP
       </div>
     );
   }
-  return(
-   <Carousel indicators={slides.length > 1}>
+  return (
+    <Carousel indicators={slides.length > 1}>
       {slides.map((group, idx) => (
         <Carousel.Item key={idx}>
           <Row className="justify-content-center">
@@ -49,8 +50,10 @@ const CarouselCards = ({ products = [], loading = false, error = null, productsP
               const id = product?.id
               const name = product?.productName ?? 'Producto';
               const price = product?.price ?? product?.salePrice ?? 0;
-              const img = product?.imgUrl ?? DEFAULT_IMG;
-              console.log( "imagne", img)
+              const img = product?.images?.length > 0
+                ? `http://localhost:5053${product.images.find(img => img.isMain)?.url || product.images[0].url}`
+                : DEFAULT_IMG;
+              console.log("imagne", img)
 
               return (
                 <Col key={id} md={12 / productsPerSlide} className="mb-4">

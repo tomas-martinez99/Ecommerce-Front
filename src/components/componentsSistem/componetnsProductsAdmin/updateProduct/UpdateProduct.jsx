@@ -1,14 +1,15 @@
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { Modal, Button, Form } from 'react-bootstrap';
-import { useProduct } from '../../../../hooks/products/useProducts';
+import { useProductById } from '../../../../hooks/products/useProducts';
 
 
 const UpdateProduct = ({ show, onHide, product, providers, refetch, onUpdate }) => {
 
-    const { data: productData, isLoading } = useProduct(product?.id, show);
+    const { data: productData, isLoading } = useProductById(product?.id, show);
 
     const [form, setForm] = useState({
+        SKU : '',
         productName: '',
         description: '',
         price: '',
@@ -24,6 +25,7 @@ const UpdateProduct = ({ show, onHide, product, providers, refetch, onUpdate }) 
         // Actualiza el formulario con los datos completos del producto
         if (productData) {
             setForm({
+                SKU: productData.SKU || '',
                 productName: productData.productName || '',
                 description: productData.description || '',
                 price: productData.price || '',
@@ -62,6 +64,14 @@ const UpdateProduct = ({ show, onHide, product, providers, refetch, onUpdate }) 
                     <div className="text-center py-5">Cargando datos...</div>
                 ) : (
                     <Form onSubmit={handleSubmit}>
+                         <Form.Group className="mb-3">
+                            <Form.Control
+                                name="sku"
+                                placeholder="Codigo del producto"
+                                value={form.SKU}
+                                onChange={handleChange}
+                            />
+                        </Form.Group>
                         <Form.Group className="mb-3">
                             <Form.Control
                                 name="productName"
