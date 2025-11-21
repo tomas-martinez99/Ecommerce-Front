@@ -46,6 +46,26 @@ export const providerService = {
         }
     },
 
+    getByProviderId: async (providerId) => {
+        try {
+            const { data, status } = await api.get(`/Provider/${providerId}/products`);
+            if (status < 200 || status >= 300) throw { message: `HTTP ${status}`, status };
+            // Si tu endpoint devuelve DetailProviderDto, retornamos solo products para comodidad:
+            if (data && Array.isArray(data.products)) return { provider: data, products: data.products };
+            // Si el endpoint ya devuelve solo array de products:
+            if (Array.isArray(data)) return { provider: null, products: data };
+            return { provider: null, products: [] };
+        } catch (err) {
+            const normalized = {
+                message: err?.message ?? err?.response?.data?.message ?? "Error al obtener productos del proveedor",
+                status: err?.status ?? err?.response?.status ?? null,
+                details: err?.response?.data ?? null,
+            };
+            console.error("productService.getByProviderId error:", normalized);
+            throw normalized;
+        }
+    },
+
     create: async (payload) => {
         try {
             const { data, status } = await api.post('/Provider', payload);

@@ -19,6 +19,16 @@ export function useProvider(id) {
   })
 }
 
+export function useProductsByProvider(providerId, extraParams = {}) {
+  return useQuery({
+    queryKey: ["products-by-provider", providerId, extraParams],
+    queryFn: () => providerService.getByProviderId(providerId, extraParams),
+    enabled: !!providerId,
+    staleTime: 1000 * 60,
+    keepPreviousData: true,
+  });
+}
+
 export function useCreateProvider() {
   const qc = useQueryClient();
   return useMutation({
