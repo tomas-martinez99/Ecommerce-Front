@@ -1,15 +1,25 @@
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
-import { productService } from "../../services/prodcutServices/product.service.js";
+import  productService  from "../../services/prodcutServices/product.service.js";
 
+const serialize = (obj = {}) =>
+  Object.keys(obj)
+    .sort()
+    .filter((k) => obj[k] !== undefined && obj[k] !== null && obj[k] !== "")
+    .map((k) => `${k}=${obj[k]}`)
+    .join("&");
 
-export function useProducts(params) {
+export function useProducts(filters = {}, options = {}) {
+  const paramsKey = serialize(filters);
   return useQuery({
-    queryKey: ["products", params],
-    queryFn: () => productService.getAll(params),
+    queryKey: ["products", paramsKey || "all"],
+    queryFn: () => productService.getAll(filters),
     keepPreviousData: true,
     staleTime: 1000 * 60,
+    refetchOnWindowFocus: false,
+    ...options,
   });
 }
+
 
 export function useProductsProvider(params) {
   return useQuery({
@@ -24,6 +34,16 @@ export function useProductById(id) {
   return useQuery({
     queryKey: ["product", id],
     queryFn: () => productService.getById(id),
+    enabled: !!id,          // solo ejecuta si hay id válido
+    staleTime: 1000 * 60,   // cachea 1 minuto
+    retry: 1,               // reintenta una vez si falla
+  });
+}
+
+export function useProductAdminById(id) {
+  return useQuery({
+    queryKey: ["product", id],
+    queryFn: () => productService.getAdminById(id),
     enabled: !!id,          // solo ejecuta si hay id válido
     staleTime: 1000 * 60,   // cachea 1 minuto
     retry: 1,               // reintenta una vez si falla

@@ -1,36 +1,37 @@
-
 import { api } from "../../api/api.js";
 
-const BASE = "/Provider";
-export const providerService = {
-    getAll: async (params) => {
+const BASE = "/Brand";
+
+export const brandService = {
+
+    getAll: async () => {
         try {
-            const { data, status } = await api.get(BASE, { params });
+            const { data, status } = await api.get(BASE);
             if (status < 200 || status >= 300) {
                 throw { message: `HTTP ${status}`, status };
             }
+
+            // Si la API devuelve directamente un array
             if (Array.isArray(data)) {
-                return { items: data, total: data.length, page: params?.page ?? 1, pageSize: params?.pageSize ?? data.length };
+                return data;
             }
-            if (data && typeof data === "object") {
-                const items = Array.isArray(data.items) ? data.items : [];
-                const total = typeof data.total === "number" ? data.total : items.length;
-                const page = typeof data.page === "number" ? data.page : params?.page ?? 1;
-                const pageSize = typeof data.pageSize === "number" ? data.pageSize : params?.pageSize ?? items.length;
-                return { items, total, page, pageSize };
+
+            // Si devuelve un objeto con items
+            if (data && typeof data === "object" && Array.isArray(data.items)) {
+                return data.items;
             }
-            return { items: [], total: 0, page: params?.page ?? 1, pageSize: params?.pageSize ?? 0 };
+
+            return [];
         } catch (err) {
             const normalized = {
-                message: err?.message ?? err?.response?.data?.message ?? "Error desconocido al obtener productos",
+                message: err?.message ?? err?.response?.data?.message ?? "Error desconocido al obtener marcas",
                 status: err?.status ?? err?.response?.status ?? null,
                 details: err?.response?.data ?? null,
             };
-            console.error("productService.getAll error:", normalized);
+            console.error("brandService.getAll error:", normalized);
             throw normalized;
         }
     },
-  
 
     getById: async (id) => {
         try {
@@ -38,7 +39,7 @@ export const providerService = {
             return data;
         } catch (err) {
             const normalized = {
-                message: err?.message ?? err?.response?.data?.message ?? "Error al obtener proveedor",
+                message: err?.message ?? err?.response?.data?.message ?? "Error al obtener marca",
                 status: err?.status ?? err?.response?.status ?? null,
                 details: err?.response?.data ?? null,
             };
@@ -48,14 +49,14 @@ export const providerService = {
 
     create: async (payload) => {
         try {
-            const { data, status } = await api.post('/Provider', payload);
+            const { data, status } = await api.post(BASE, payload);
             if (status < 200 || status >= 300) {
                 throw { message: `HTTP ${status}`, status };
             }
             return data;
         } catch (err) {
             const normalized = {
-                message: err?.message ?? err?.response?.data?.message ?? "Error al crear proveedor",
+                message: err?.message ?? err?.response?.data?.message ?? "Error al crear marca",
                 status: err?.status ?? err?.response?.status ?? null,
                 details: err?.response?.data ?? null,
             };
@@ -70,13 +71,31 @@ export const providerService = {
             return data;
         } catch (err) {
             const normalized = {
-                message: err?.message ?? err?.response?.data?.message ?? "Error al actualizar proveedor",
+                message: err?.message ?? err?.response?.data?.message ?? "Error al actualizar marca",
                 status: err?.status ?? err?.response?.status ?? null,
                 details: err?.response?.data ?? null,
             };
-            console.error("providerService.update error:", normalized);
+            console.error("brandService.update error:", normalized);
             throw normalized;
         }
     },
 
-};
+     remove: async (id) => {
+      try {
+        const { data, status } = await api.delete(`${BASE}/${id}`);
+        if (status < 200 || status >= 300) throw { message: `HTTP ${status}`, status };
+        return data;
+      } catch (err) {
+            const normalized = {
+                message: err?.message ?? err?.response?.data?.message ?? "Error al borrar marca",
+                status: err?.status ?? err?.response?.status ?? null,
+                details: err?.response?.data ?? null,
+            };
+            console.error("brandService.remove error:", normalized);
+            throw normalized;
+        }
+       
+      }
+    
+    }
+

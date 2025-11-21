@@ -1,38 +1,19 @@
-import PropTypes from 'prop-types'
-import React, { PureComponent } from 'react'
+import React, {  useState } from 'react'
 import { Navbar, Nav, NavDropdown, Container, Form, Button } from 'react-bootstrap'
 import { FaShoppingCart, FaBars } from 'react-icons/fa'
 import SideMenu from '../sidemenu/SideMenu'
 import "./Header.css"
-const BRANDS = [{ id: 1, name: 'Vertigo' },
-{ id: 2, name: 'Plastica VC' },
-{ id: 3, name: 'TSL' },
-{ id: 4, name: 'Motul' },
-{ id: 5, name: 'Riffel' },
-{ id: 6, name: 'Ritsuka' },
-{ id: 7, name: 'HorngFortune' },
-{ id: 8, name: 'Giangiu' },]
-const CATEGORIES = [
-    { name: 'Cascos', href: '/cascos' },
-    { name: 'Plasticos', href: '/repuestos' },
-    { name: 'Cubiertas', href: '/cubiertas' },
-    { name: 'Indumentaria', href: '/indumentaria' },
-    { name: 'Lubricantes', href: '/lubricantes' },
-    { name: 'Baules y Soportes', href: '/baules' },
-    { name: 'Accesorios', href: '/seguridad' },
-    { name: 'Transmision', href: '/outdoor' },
-];
+import { useBrands } from '../../hooks/brands/useBrands'
 
 
-export default class Header extends PureComponent {
-    static propTypes = {}
-    state = {
-        showMenu: false
-    };
-    handleMenuOpen = () => this.setState({ showMenu: true });
-    handleMenuClose = () => this.setState({ showMenu: false });
 
-    render() {
+export default function Header(){
+const [showMenu, setShowMenu] = useState(false);
+  const handleMenuOpen = () => setShowMenu(true);
+  const handleMenuClose = () => setShowMenu(false);
+   const {data: brands = [], isLoading, isError} = useBrands();
+   
+    console.log("marcas",brands);
         return (
             <header>
                 <Navbar expand="xl" fixed='top' className='flex-column' style={{ backgroundColor: '#e81123', }}>
@@ -41,7 +22,7 @@ export default class Header extends PureComponent {
                             <Button
                                 variant="link"
                                 className="me-3 p-2 "
-                                onClick={this.handleMenuOpen}
+                                onClick={handleMenuOpen}
                                 style={{ color: "#fff" }}
                                 aria-label="Abrir menú"
                             >
@@ -75,16 +56,17 @@ export default class Header extends PureComponent {
                         </div>
                     </Container>
                     <Container fluid>
-                        <div className="d-flex justify-content-center">
-                          
+                        <div className="d-flex justify-content-center">                         
                             <Nav >
-                                {BRANDS.map(brand => (
+                                {isLoading && <span className="text-white">Cargando marcas...</span>}
+                                {isError && <span className="text-white">Error al cargar marcas</span>}
+                                {brands.map(brand => (
                                     <Button
                                         key={brand.id}
                                         className="btn2 mx-2"
-                                        href={`/marca/${brand.name.toLowerCase().replace(/\s+/g, '-')}`}
+                                        href={`/productList?brandId=${brand.id}`}
                                     >
-                                        {brand.name}
+                                        {brand.brandName}
                                     </Button>
                                 ))}
                                 <Button 
@@ -95,13 +77,12 @@ export default class Header extends PureComponent {
                         </div>
                     </Container>
                 </Navbar>
-                <SideMenu
-                    show={this.state.showMenu}
-                    onHide={this.handleMenuClose}
-                    categories={CATEGORIES}
+                 <SideMenu
+                    show={showMenu}
+                    onHide={handleMenuClose}
                 />
             </header>
         );
     }
-}
+Header.propTypes = {}
 

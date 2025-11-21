@@ -4,7 +4,6 @@ import { FaTrash, FaCamera, FaPen, FaSearch } from 'react-icons/fa';
 import './ProductListAdmin.css';
 import { useDeleteProduct, useProductsProvider, useUpdateProduct } from '../../../../hooks/products/useProducts.js';
 import AddProduct from '../addProduct/AddProduct.jsx';
-import { useProviders } from '../../../../hooks/providers/useProviders.js';
 import UpdateProduct from '../updateProduct/UpdateProduct.jsx';
 import ConfirmDelete from '../../confirmDelete/ConfirmDelete.jsx';
 import ImgModal from '../imgModal/ImgModal';
@@ -27,7 +26,7 @@ export default function ProductListAdmin() {
 
     const { mutate: updateProduct } = useUpdateProduct();
     const { mutate: deleteProduct, isLoading: isDeleting, mutateAsync: deleteProductAsync } = useDeleteProduct();
-    const { data: providers } = useProviders();
+    
 
     // Pagina simple por ahora, podés exponer page/pageSize si lo necesitás
     const params = useMemo(() => ({ q: debouncedQ, page, pageSize }), [debouncedQ, page, pageSize]);
@@ -85,7 +84,7 @@ export default function ProductListAdmin() {
     }, [data]);
     console.log("Products:", products);
     console.log("Data:", data);
-    console.log("Providers:", providers);
+
 
     return (
         <div className="page-center">
@@ -142,8 +141,8 @@ export default function ProductListAdmin() {
                                         <td>{p.price}</td>
                                         <td>{p.provider.providerName}</td>
                                         <td>{p.stock}</td>
-                                        <td>{p.brand}</td>
-                                        <td>{p.familyGroup}</td>
+                                        <td>{p.brand.brandName}</td>
+                                        <td>{p.productGroup.name}</td>
                                         <td>
                                             <Button
                                                 variant="outline"
@@ -179,13 +178,11 @@ export default function ProductListAdmin() {
                 )}
                 <AddProduct show={showAddModal}
                     onHide={() => setShowAddModal(false)}
-                    providers={providers}
                     refetch={refetch} />
                 <UpdateProduct
                     show={showEditModal}
                     onHide={() => setShowEditModal(false)}
                     product={selectedProduct}
-                    providers={providers}
                     refetch={refetch}
                     onUpdate={(id, payload, options) => updateProduct({ id, payload }, options)}
                 />

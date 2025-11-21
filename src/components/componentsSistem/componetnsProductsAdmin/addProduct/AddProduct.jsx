@@ -2,41 +2,59 @@ import PropTypes from 'prop-types';
 import React, { useState } from 'react';
 import { Modal, Button, Form } from 'react-bootstrap';
 import { useCreateProduct } from '../../../../hooks/products/useProducts';
+import { useProviders } from '../../../../hooks/providers/useProviders';
+import { useBrands } from '../../../../hooks/brands/useBrands';
+import { useProductGroups } from '../../../../hooks/productGroups/useProductGroups';
+import { normalizeProduct } from '../../../../services/helper/normalizeProduct';
 
-const AddProduct = ({ show, onHide, providers, refetch }) => {
+
+const AddProduct = ({ show, onHide, refetch }) => {
+    const { data: providers } = useProviders();
+    const { data: brands } = useBrands();
+    const { data: productGroups } = useProductGroups();
+
     const [form, setForm] = useState({
         SKU: '',
         productName: '',
         description: '',
-        price: '',
-        cost: '',
-        stock: '',
+        price: 0,
+        cost: 0,
+        stock: 0,
         providerId: '',
-        brand: '',
-        familyGroup: ''
+        brandId: '',
+        productGroupId: ''
+    });
+
+    const resetForm = () => ({
+        SKU: '',
+        productName: '',
+        description: '',
+        price: 0,
+        cost: 0,
+        stock: 0,
+        providerId: '',
+        brandId: '',
+        productGroupId: ''
     });
 
     const { mutate, isLoading } = useCreateProduct();
 
     const handleChange = (e) => {
-        setForm({ ...form, [e.target.name]: e.target.value });
+        const { name, value } = e.target;
+        setForm({
+            ...form,
+            [name]: ["providerId", "brandId", "productGroupId"].includes(name)
+                ? parseInt(value) || ""
+                : value
+        });
     };
     const handleSubmit = (e) => {
         e.preventDefault();
-
-        console.log("Datos enviados:", form);
-        mutate(form, {
+        const payload = normalizeProduct(form);
+        console.log("Datos enviados:", payload);
+        mutate(payload, {
             onSuccess: () => {
-                setForm({
-                    productName: '',
-                    description: '',
-                    price: '',
-                    cost: '',
-                    stock: '',
-                    providerId: '',
-                    brand: '',
-                    familyGroup: ''
-                })
+                setForm(resetForm());
                 if (refetch) refetch();
                 onHide();
             },
@@ -44,20 +62,12 @@ const AddProduct = ({ show, onHide, providers, refetch }) => {
                 alert(error.message);
             }
         });
-    }
-     const handleClose = () => {
-            setForm({
-                productName: '',
-                description: '',
-                price: '',
-                cost: '',
-                stock: '',
-                providerId: '',
-                brand: '',
-                familyGroup: ''
-            });
-            onHide();
-        };
+    };
+
+    const handleClose = () => {
+        setForm(resetForm());
+        onHide();
+    };
 
     return (
         <div>
@@ -120,26 +130,40 @@ const AddProduct = ({ show, onHide, providers, refetch }) => {
                                 onChange={handleChange}
                             >
                                 <option value="">Proveedor</option>
-                                {(Array.isArray(providers?.items) ? providers.items : []).map(prov => (
-                                    <option key={prov.id} value={prov.id}>
-                                        {prov.providerName}
+                                {(Array.isArray(providers?.items) ? providers.items : Array.isArray(providers) ? providers : []).map(bra => (
+                                    <option key={bra.id} value={bra.id}>
+                                        {bra.providerName}
                                     </option>
                                 ))}
                             </Form.Select>
                         </Form.Group>
                         <Form.Group className="mb-3">
-                            <Form.Control
-                                name='brand'
-                                value={form.brand}
+                            <Form.Select
+                                name='brandId'
+                                value={form.brandId}
                                 onChange={handleChange}
-                                placeholder="Marca" />
+                            >
+                                <option value="">Marcas</option>
+                                {(Array.isArray(brands?.items) ? brands.items : Array.isArray(brands) ? brands : []).map(bra => (
+                                    <option key={bra.id} value={bra.id}>
+                                        {bra.brandName}
+                                    </option>
+                                ))}
+                            </Form.Select>
                         </Form.Group>
                         <Form.Group className="mb-3">
-                            <Form.Control
-                                name='familyGroup'
-                                value={form.familyGroup}
+                            <Form.Select
+                                name='productGroupId'
+                                value={form.productGroupId}
                                 onChange={handleChange}
-                                placeholder="Familia De Producto" />
+                            >
+                                <option value="">Categorias</option>
+                                {(Array.isArray(productGroups?.item) ? productGroups.item : Array.isArray(productGroups) ? productGroups : []).map(pg => (
+                                    <option key={pg.id} value={pg.id}>
+                                        {pg.name}
+                                    </option>
+                                ))}
+                            </Form.Select>
                         </Form.Group>
                         <Button variant="primary" type='submit' disabled={isLoading}>
                             Crear Producto
@@ -156,6 +180,5 @@ export default AddProduct;
 AddProduct.propTypes = {
     show: PropTypes.bool.isRequired,
     onHide: PropTypes.func.isRequired,
-    providers: PropTypes.array,
     refetch: PropTypes.func // Puede ser array de objetos o vacío
 };
