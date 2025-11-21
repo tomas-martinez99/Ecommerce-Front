@@ -1,51 +1,119 @@
-.product-card {
-  border-radius: 12px;
-  border: 1px solid #eee;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.04);
-  transition: box-shadow 0.2s, transform 0.2s;
-  background: #fff;
+/* Layout principal: sidebar + contenido */
+.product-layout {
+  display: flex;
+  align-items: flex-start;
+  gap: 24px;
+  box-sizing: border-box;
 }
 
-.product-card:hover {
-  box-shadow: 0 8px 24px rgba(0,0,0,0.10);
-  transform: translateY(-4px) scale(1.01);
-}
-
-.discount-badge {
-  position: absolute;
-  top: 12px;
-  left: 12px;
-  font-size: 0.85rem;
-  padding: 6px 10px;
-  border-radius: 8px;
-  font-weight: 700;
-}
+/* Sidebar con ancho fijo */
 .menu-lateral {
+  width: 260px; /* ajusta a lo que quieras */
+  min-width: 220px;
   background: #F5F5DC;
-  height: 100vh;
+  height: calc(100vh - 130px);
   position: sticky;
-  top: 120px;
-  z-index: 1000;
+  top: 130px;
+  padding: 16px;
+  box-sizing: border-box;
+}
+.menu-lateral .btn2,
+.menu-lateral .btn2:link,
+.menu-lateral .btn2:visited {
+  display: block !important;
+  width: 100% !important;
+  margin: 8px 0 !important;      /* separa uno por fila */
+  padding: 10px 14px !important;
+  text-align: left !important;
+  background: transparent !important; /* hereda el fondo del sidebar */
+  color: #111 !important;
+  border: none !important;       /* sin bordes */
+  border-radius: 8px !important;
+  box-shadow: none !important;
+  text-decoration: none !important;
+  cursor: pointer;
+  transition: background-color .15s ease, transform .06s ease;
+  box-sizing: border-box;
+}
+
+/* corregir si queda la clase mx-2 en el JSX */
+.menu-lateral .btn2.mx-2 {
+  margin-left: 0 !important;
+  margin-right: 0 !important;
+}
+
+/* hover / focus accesible */
+.menu-lateral .btn2:hover,
+.menu-lateral .btn2:focus {
+  background-color: rgba(0,0,0,0.03) !important; /* sutil contraste sobre el fondo */
+  transform: translateY(-1px);
+  outline: none !important;
+}
+
+/* foco visible para teclado */
+.menu-lateral .btn2:focus {
+  box-shadow: 0 0 0 4px rgba(216,27,40,0.12) !important;
+}
+
+/* Contenedor de productos: ocupa resto */
+.product-content {
+  flex: 1;
+  padding: 0 24px;
+  box-sizing: border-box;
+   /* Nuevo: layout en columna para poder empujar la paginación abajo */
   display: flex;
   flex-direction: column;
-  align-items: flex-start;
-  padding-left: 0;
-  padding-right: 0;
-  padding-top: 0;
+  min-height: calc(100vh - 130px); /* 130 = altura header usada antes */
 }
 
-.menu-lateral .menu-link {
-  color: #222 !important;
-  text-align: center;
-  font-weight: 500;
-  text-decoration: none;
-  padding-left: 1rem;
-  background: none;
-  border: none;
+/* asegurar que el grid ocupe el espacio disponible */
+.product-grid {
+  flex: 1 1 auto; /* importante: tomar el espacio restante */
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+  align-items: start;
 }
-.menu-lateral .menu-link:hover,
-.menu-lateral .menu-link:focus {
-  color: #007bff !important;
-  text-decoration: underline;
-  background: none;
+
+/* wrapper de paginación pegado al final */
+.pagination-wrapper {
+  margin-top: auto; /* empuja al final del main */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 20px 0;
+}
+
+/* Responsive: 2 columnas en tablet, 1 en móviles */
+@media (max-width: 992px) {
+  .product-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+@media (max-width: 576px) {
+  .product-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Column cell (mantener compatibilidad con tu markup actual) */
+.product-list-col {
+  width: 100%;
+  box-sizing: border-box;
+}
+
+/* Mantener tamaño fijo de card para evitar reflow */
+.product-card {
+  height: 360px;
+  display: flex;
+  flex-direction: column;
+  box-sizing: border-box;
+}
+
+/* Imagen dentro de la card */
+.product-card .card-img-top {
+  height: 180px;
+  object-fit: contain;
+  padding: 16px;
+  background: #fff;
 }

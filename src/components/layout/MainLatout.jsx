@@ -1,17 +1,24 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import Header from '../header/Header'
-import Footer from '../footer/Footer'
+import FooterComponent from '../footer/FooterComponent'
 
-const MainLatout = ({children}) => {
+const MainLatout = ({ children }) => {
   return (
-    <div> 
+    <>
+      <div className="app-root">
         <Header />
-        {children}
-        <Footer />
-    </div>
+        <main  className="no-transform">
+          {children}
+        </main>
 
-        
+      </div>
+      <div  className="no-transform">
+        <FooterComponent />
+      </div>
+    </>
+
+
   )
 }
 

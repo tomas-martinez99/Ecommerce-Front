@@ -53,7 +53,12 @@ button:focus,
 button:focus-visible {
   outline: 4px auto -webkit-focus-ring-color;
 }
+.no-transform, .no-transform * { transform: none !important; will-change: auto !important; }
 
+.app-content {
+  min-height: calc(100vh - 200px); /* ajustá según header+footer */
+  box-sizing: border-box;
+}
 @media (prefers-color-scheme: light) {
   :root {
     color: #213547;

@@ -1,5 +1,11 @@
+:root {
+  --navbar-width: 100px;             /* ancho reducido */
+  --navbar-width-expanded: 200px; 
+  --navbar-width-expanded2: 250px;   /* ancho expandido */
+}
+
 .left-navbar {
-  width: 100px;
+  width: var(--navbar-width);
   min-height: 100vh;
   background: #1976d2;
   color: #fff;
@@ -12,8 +18,13 @@
   z-index: 1050;
   padding-top: 1rem;
   justify-content: center;
+  transition: width 0.3s ease
+
 }
 
+.left-navbar:hover {
+  width: var(--navbar-width-expanded);
+}
 
 .navbar-icon-top {
   margin-bottom: 2rem;
@@ -54,4 +65,43 @@
 
 .navbar-link-text {
   font-size: 0.95em;
+}
+
+.left-navbar.expanded {
+  width: var(--navbar-width-expanded2);
+  transition: width 0.3s ease;
+}
+
+/* Subitems con colores invertidos */
+.sub-link {
+  background: #fff !important;
+  color: #1976d2 !important;
+  text-align: left;
+  padding: 0.8rem 0.5rem;
+  width: 99%;
+  font-size: 0.95em;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 0.5rem;
+  border-radius: 4px;
+  border: 2px solid transparent;
+  margin: 4px 1px;
+  transition: all 0.3s ease;
+}
+
+/* Ícono de los subitems también en azul */
+.sub-link .navbar-link-icon {
+  color: #1976d2 !important;
+}
+
+/* Hover: invertimos de nuevo para dar feedback */
+.sub-link:hover {
+  background: #1976d2 !important;
+  color: #fff !important;
+  border: 2px solid #fff;
+}
+
+.sub-link:hover .navbar-link-icon {
+  color: #fff !important;
 }

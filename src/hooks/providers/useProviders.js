@@ -3,7 +3,7 @@ import { providerService } from "../../services/providerServices/provider.servic
 
 export function useProviders(params) {
   return useQuery({
-    queryKey: ["products", params],
+    queryKey: ["provider", params],
     queryFn: () => providerService.getAll(params),
     keepPreviousData: true,
     staleTime: 1000 * 60,
