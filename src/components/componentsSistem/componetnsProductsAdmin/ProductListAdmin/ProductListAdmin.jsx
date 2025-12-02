@@ -1,7 +1,7 @@
 import React, { useState, useMemo, useEffect } from 'react';
 import { Table, Button, Form, Spinner } from 'react-bootstrap';
 import { FaTrash, FaCamera, FaPen, FaSearch } from 'react-icons/fa';
-import './ProductListAdmin.css';
+import "../../../../assets/style/theme.css" // importa el tema global
 import { useDeleteProduct, useProductsProvider, useUpdateProduct } from '../../../../hooks/products/useProducts.js';
 import AddProduct from '../addProduct/AddProduct.jsx';
 import UpdateProduct from '../updateProduct/UpdateProduct.jsx';

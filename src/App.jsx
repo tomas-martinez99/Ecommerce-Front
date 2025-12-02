@@ -9,6 +9,8 @@ import AdminLayout from './components/layout/AdminLayout'
 import ProductListAdmin from './components/componentsSistem/componetnsProductsAdmin/ProductListAdmin/ProductListAdmin'
 import BrandList from './components/componentsSistem/componentsBrand/brandList/BrandList'
 import ProductGroupList from './components/componentsSistem/componentsProductGroup/productGroupList/ProductGroupList'
+import Cart from './components/componentsCart/cart/Cart'
+import OrderList from './components/componentsSistem/componentsOrder/orderList/OrderList'
 
 
 
@@ -29,6 +31,11 @@ function App() {
             <ProductList />
           </MainLatout>} />
 
+          <Route path="/cart" element={
+          <MainLatout>
+            <Cart />
+          </MainLatout>} />
+
         <Route path="/providerList" element={
           <AdminLayout>
             <ProviderList/>
@@ -47,6 +54,11 @@ function App() {
            <Route path="/productGropList" element={
           <AdminLayout>
             <ProductGroupList/>
+          </AdminLayout>} />
+
+          <Route path="/orderList" element={
+          <AdminLayout>
+            <OrderList/>
           </AdminLayout>} />
       </Routes>
 
