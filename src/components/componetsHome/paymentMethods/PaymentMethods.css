@@ -1,0 +1,31 @@
+.payment-methods-container {
+  display: flex;
+  justify-content: center;
+  align-items: stretch;
+  gap: 24px;
+  background: #f4f4f4;
+  padding: 24px 0;
+  margin-bottom: 24px;
+}
+
+.payment-methods {
+  background: #fff;
+  border-radius: 8px;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.05);
+  padding: 16px 32px;
+  display: flex;
+  align-items: center;
+  min-width: 200px;
+  gap: 16px;
+}
+
+.payment-methods i {
+  font-size: 32px;
+  color: #3483fa;
+}
+
+.method-link {
+  color: #3483fa;
+  font-size: 13px;
+  cursor: pointer;
+}

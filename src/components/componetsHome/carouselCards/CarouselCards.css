@@ -1,0 +1,41 @@
+.product-card-custom {
+  border-radius: 12px;
+  border: 1px solid #eee;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+  transition: box-shadow 0.2s, transform 0.2s;
+  background: #fff;
+}
+
+.product-card-custom:hover {
+  box-shadow: 0 8px 24px rgba(0,0,0,0.10);
+  transform: translateY(-4px) scale(1.01);
+}
+
+.discount-badge {
+  position: absolute;
+  top: 12px;
+  left: 12px;
+  font-size: 0.85rem;
+  padding: 6px 10px;
+  border-radius: 8px;
+  font-weight: 700;
+}
+
+.envio-badge {
+  font-size: 0.75rem;
+  padding: 4px 8px;
+  border-radius: 6px;
+}
+
+.btn-outline-dark {
+  border: 1.5px solid #222;
+  color: #222;
+  background: #fff;
+  transition: background 0.2s, color 0.2s, border 0.2s;
+}
+
+.btn-outline-dark:hover, .btn-outline-dark:focus {
+  background: #e81123;
+  color: #fff;
+  border-color: #e81123;
+}

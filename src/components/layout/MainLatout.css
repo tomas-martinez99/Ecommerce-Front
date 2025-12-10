@@ -1,0 +1,4 @@
+.app-content {
+  min-height: calc(100vh - 200px); /* ajustá según header+footer */
+  box-sizing: border-box;
+}

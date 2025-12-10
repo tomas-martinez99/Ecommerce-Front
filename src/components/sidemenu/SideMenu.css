@@ -1,0 +1,51 @@
+.offcanvas {
+  background: #e64754;
+  color: #fff;
+}
+
+.offcanvas-header {
+  border-bottom: none !important;
+}
+.offcanvas-title {
+  font-weight: 700;
+  font-size: 1.2rem;
+  color: #fff;
+}
+
+.offcanvas-body {
+  padding-top: 16px;
+}
+
+.flex-column .nav-link {
+  color: #fff;
+  text-align: center;
+  font-size: 1.1rem;
+  padding: 12px 0;
+  border-bottom: 1px solid #333;
+  transition: background 0.2s, color 0.2s;
+}
+
+.flex-column .nav-link:last-child {
+  border-bottom: none;
+}
+
+.flex-column .nav-link:hover,
+.flex-column .nav-link:focus {
+  background: #e81123;
+  color: #fff;
+  border-radius: 6px;
+}
+.login-btn {
+  margin-top: 24px;
+  font-weight: bold;
+  border-radius: 8px;
+  border: 1.5px solid #333;
+  color: #fff;
+  background: transparent;
+  transition: background 0.2s, color 0.2s;
+}
+.login-btn:hover, .login-btn:focus {
+  background: #e81123;
+  color: #fff;
+  border-color: #e81123;
+}

@@ -1,0 +1,123 @@
+/* FOOTER: full width background + centered inner wrapper */
+.footer-main {
+  width: 100%;
+  background: #d81b28; /* color de fondo */
+  color: #fff;
+  box-sizing: border-box;
+  padding: 0; /* todo el padding dentro de .footer-inner */
+}
+
+/* wrapper centrado con ancho máximo */
+.footer-inner {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 32px 20px;
+  box-sizing: border-box;
+}
+
+/* zona superior: logo / categorías / contacto */
+.footer-top {
+  display: flex;
+  gap: 32px;
+  align-items: flex-start;
+  justify-content: space-between;
+  flex-wrap: wrap;
+}
+
+/* logo */
+.footer-logo img {
+  height: 60px;
+  width: auto;
+  display: block;
+}
+
+/* listas */
+.footer-categories,
+.footer-contact {
+  min-width: 200px;
+  flex: 1;
+  box-sizing: border-box;
+}
+
+.footer-categories h6,
+.footer-contact h6 {
+  margin: 0 0 8px 0;
+  font-size: 1rem;
+  font-weight: 700;
+  color: #fff;
+}
+
+.footer-categories ul,
+.footer-contact ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.footer-categories li,
+.footer-contact li {
+  margin: 6px 0;
+  font-size: 0.95rem;
+  color: #fff;
+}
+
+.footer-categories a,
+.footer-contact a {
+  color: #fff;
+  text-decoration: none;
+  opacity: 0.95;
+}
+
+.footer-categories a:hover,
+.footer-contact a:hover {
+  text-decoration: underline;
+  opacity: 1;
+}
+
+/* zona inferior: copyright + credits */
+.footer-bottom {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 24px;
+  border-top: 1px solid rgba(255,255,255,0.08);
+  padding-top: 16px;
+  gap: 12px;
+  flex-wrap: wrap;
+  font-size: 0.9rem;
+}
+
+.footer-bottom .credits a {
+  color: #fff;
+  text-decoration: underline;
+}
+
+/* responsive: apilar en pantallas pequeñas */
+@media (max-width: 768px) {
+  .footer-top {
+    flex-direction: column;
+    gap: 16px;
+  }
+
+  .footer-categories,
+  .footer-contact {
+    min-width: 0;
+    width: 100%;
+  }
+
+  .footer-bottom {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+}
+
+/* utilidad: si querés footer fijo (opcional), descomentar y ajustar padding-bottom en main */
+/*
+.footer-fixed {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 999;
+}
+*/
