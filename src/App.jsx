@@ -12,6 +12,7 @@ import ProductGroupList from './components/componentsSistem/componentsProductGro
 import Cart from './components/componentsCart/cart/Cart'
 import OrderList from './components/componentsSistem/componentsOrder/orderList/OrderList'
 import Settings from './components/componentsSistem/componentsSettings/settings/Settings'
+import PromotionList from './components/componentsSistem/componentsPromotions/promotionsList/PromotionList'
 
 
 
@@ -60,6 +61,11 @@ function App() {
           <Route path="/orderList" element={
           <AdminLayout>
             <OrderList/>
+          </AdminLayout>} />
+
+           <Route path="/promotionList" element={
+          <AdminLayout>
+            <PromotionList/>
           </AdminLayout>} />
 
            <Route path="/settings" element={

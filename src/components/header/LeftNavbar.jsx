@@ -13,6 +13,8 @@ const categories = [
       { name: 'Listado de productos', icon: <FaBoxOpen />, to: "/productListAdmin" },
       { name: 'Marcas', icon: <FaBoxOpen />, to: "/brandList" },
       { name: 'Categorías', icon: <FaBoxOpen />, to: "/productGropList" },
+      { name: 'Promociones', icon: <FaBoxOpen />, to: "/promotionlist" },
+      
     ],
   },
   {
