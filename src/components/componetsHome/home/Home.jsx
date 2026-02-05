@@ -5,10 +5,15 @@ import PaymentMethods from '../paymentMethods/PaymentMethods'
 import CarouselCards from '../carouselCards/CarouselCards'
 import Benefits from '../benefits/Benefits'
 import { useProducts } from '../../../hooks/products/useProducts'
+import { useSettings } from '../../../hooks/settings/useSettings'
+import WhatsAppButton from '../whatsAppButton/WhatsAppButton'
 
 
 const Home =() => {
   const { data, isLoading, isError, error, refetch } = useProducts()
+ const { data: settings, isLoading: isSettingsLoading, isError: isSettingsError } = useSettings()
+ console.log("Settings en Home:", settings);
+ 
    const products = Array.isArray(data)
     ? data
     : Array.isArray(data?.items)
@@ -25,6 +30,12 @@ const Home =() => {
         error={isError ? error : null}
         onRefresh={refetch}
       />
+       
+      {!isSettingsLoading && !isSettingsError && settings?.whatsAppNumber && (
+      <WhatsAppButton
+        phoneNumber={settings?.whatsAppNumber}
+        message="Hola, quiero más información"
+      />)}
       <Benefits/>
       
     </div>

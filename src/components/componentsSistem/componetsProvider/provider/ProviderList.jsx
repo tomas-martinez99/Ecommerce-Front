@@ -1,4 +1,4 @@
-  import React, { useState, useMemo, useEffect } from "react";
+    import React, { useState, useMemo, useEffect } from "react";
   import { Container, Row, Col, Button, Table, Form, Spinner } from "react-bootstrap";
   import { FaTrash, FaPen, FaSearch } from 'react-icons/fa';
   import "./ProviderList.css";

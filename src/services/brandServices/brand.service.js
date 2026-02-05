@@ -80,12 +80,12 @@ export const brandService = {
         }
     },
 
-     remove: async (id) => {
-      try {
-        const { data, status } = await api.delete(`${BASE}/${id}`);
-        if (status < 200 || status >= 300) throw { message: `HTTP ${status}`, status };
-        return data;
-      } catch (err) {
+    remove: async (id) => {
+        try {
+            const { data, status } = await api.delete(`${BASE}/${id}`);
+            if (status < 200 || status >= 300) throw { message: `HTTP ${status}`, status };
+            return data;
+        } catch (err) {
             const normalized = {
                 message: err?.message ?? err?.response?.data?.message ?? "Error al borrar marca",
                 status: err?.status ?? err?.response?.status ?? null,
@@ -94,8 +94,10 @@ export const brandService = {
             console.error("brandService.remove error:", normalized);
             throw normalized;
         }
-       
-      }
-    
-    }
 
+    },
+    getProductsByBrand : async (brandId) => {
+  const { data } = await api.get(`${BASE}/${brandId}/products`);
+  return data;
+    }
+}

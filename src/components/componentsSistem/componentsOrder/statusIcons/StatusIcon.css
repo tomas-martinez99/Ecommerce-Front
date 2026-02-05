@@ -1,0 +1,32 @@
+.status-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  font-weight: bold;
+  color: white;
+  font-size: 14px;
+}
+
+/* Colores por estado */
+.status-pendiente {
+  background-color: rgb(223, 189, 1);
+}
+
+.status-asignada {
+  background-color: rgb(3, 3, 182);
+}
+
+.status-paga {
+  background-color: rgb(4, 141, 187);
+}
+
+.status-completada {
+  background-color: rgb(1, 95, 1);
+}
+
+.status-cancelada {
+  background-color: red;
+}

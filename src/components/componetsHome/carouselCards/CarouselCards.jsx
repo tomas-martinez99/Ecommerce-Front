@@ -2,24 +2,27 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { Carousel, Card, Row, Col, Badge, Spinner, Button } from 'react-bootstrap';
 import './CarouselCards.css';
+import { useDispatch } from 'react-redux';
+import { addItem } from '../../../features/cart/cartSlice';
 
-const DEFAULT_IMG = '/public/productImg/ImgDefault.jpg';
+const DEFAULT_IMG = 'http://localhost:5053/images/products/IMGDEFAULT.jpg';
 const chunkArray = (arr = [], size = 4) => {
   if (!Array.isArray(arr) || arr.length === 0) return [];
   const chunks = [];
   for (let i = 0; i < arr.length; i += size) {
     chunks.push(arr.slice(i, i + size));
   }
- return chunks;
+  return chunks;
 };
 
 
 
-const CarouselCards = ({ products = [], loading = false, error = null, productsPerSlide = 4, onAddToCart, onProductClick }) => {
+const CarouselCards = ({ products = [], loading = false, error = null, productsPerSlide = 4, onProductClick }) => {
   const items = Array.isArray(products) ? products : Array.isArray(products?.items) ? products.items : [];
   const slides = chunkArray(items, productsPerSlide);
   console.log('CarouselCards items:', items);
 
+  const dispatch = useDispatch()
   if (loading) {
     return (
       <div className="text-center py-5">
@@ -83,8 +86,19 @@ const CarouselCards = ({ products = [], loading = false, error = null, productsP
                       <div className="mt-auto">
                         <Button
                           variant="outline-dark"
-                          className="w-100"
-                          onClick={() => typeof onAddToCart === 'function' ? onAddToCart(product) : null}
+                          className="w-100 mt-2"
+                          onClick={() => dispatch(addItem({
+                            id: product.id,
+                            name: product.productName,
+                            price: product.price ?? product.salePrice ?? 0,
+                            image: product.images?.find(img => img.isMain)
+                              ? `http://localhost:5053${product.images.find(img => img.isMain).url}`
+                              : product.images?.length > 0
+                                ? `http://localhost:5053${product.images[0].url}`
+                                : DEFAULT_IMG,
+                            discount: product.discount,
+                            freeShipping: product.freeShipping,
+                          }))}
                         >
                           Agregar al carrito
                         </Button>

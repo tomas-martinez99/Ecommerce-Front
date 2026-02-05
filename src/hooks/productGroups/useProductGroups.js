@@ -44,7 +44,7 @@ export function useUpdateProductGroup() {
   });
 }
 
-export function useDeleteBrand() {
+export function useDeleteProductGroup() {
   const qc = useQueryClient();
   return useMutation({
     mutationFn: (id) => productGroupService.remove(id),
@@ -65,3 +65,11 @@ export function useDeleteBrand() {
     onSettled: () => qc.invalidateQueries({ queryKey: ["productGroups"] }),
   });
 }
+
+export function useProductsByProducGroup (id)  {
+  return useQuery({
+    queryKey: ["productsByProducGroup", id],
+    queryFn: () => productGroupService.getProductsByProducGroup(id),
+    enabled: !!id,
+  });
+};

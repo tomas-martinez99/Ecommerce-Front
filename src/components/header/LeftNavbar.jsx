@@ -10,9 +10,11 @@ const categories = [
     key: 'productos',
     icon: <FaBoxOpen />,
     subItems: [
-      { name: 'Listado de productos', icon: <FaBoxOpen />,to: "/productListAdmin" },
-      { name: 'Marcas', icon: <FaBoxOpen /> ,to: "/brandList"},
+      { name: 'Listado de productos', icon: <FaBoxOpen />, to: "/productListAdmin" },
+      { name: 'Marcas', icon: <FaBoxOpen />, to: "/brandList" },
       { name: 'Categorías', icon: <FaBoxOpen />, to: "/productGropList" },
+      { name: 'Promociones', icon: <FaBoxOpen />, to: "/promotionlist" },
+      
     ],
   },
   {
@@ -39,11 +41,18 @@ const categories = [
     icon: <FaChartBar />,
     to: "/statistics"
   },
+  {
+    name: 'Settings',
+    key: 'settings',
+    icon: <FaCog />,
+    to: "/settings"
+  }
+
 ];
 
 const LeftNavbar = () => {
   const [expandedKey, setExpandedKey] = useState(null);
-   const navbarRef = useRef(null);
+  const navbarRef = useRef(null);
   const navigate = useNavigate();
 
   const handleClick = (cat) => {
@@ -55,7 +64,7 @@ const LeftNavbar = () => {
     }
   };
 
-   return (
+  return (
     <nav ref={navbarRef} className={`left-navbar ${expandedKey ? 'expanded' : ''}`}>
       <div className="navbar-icon-top">
         <FaCog size={32} />
