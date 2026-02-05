@@ -64,5 +64,13 @@ export function useDeleteBrand() {
       if (context?.previous) qc.setQueryData(["brands"], context.previous);
     },
     onSettled: () => qc.invalidateQueries({ queryKey: ["brands"] }),
-  });
+  }); 
 }
+
+export function useProductsByBrand (brandId)  {
+  return useQuery({
+    queryKey: ["productsByBrand", brandId],
+    queryFn: () => brandService.getProductsByBrand(brandId),
+    enabled: !!brandId,
+  });
+};

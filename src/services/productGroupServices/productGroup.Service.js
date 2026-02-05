@@ -84,5 +84,9 @@ export const productGroupService = {
                 console.error("brandService.remove error:", normalized);
                 throw normalized;
             }
+        },
+    getProductsByProducGroup : async (id) => {
+      const { data } = await api.get(`${BASE}/${id}/products`);
+      return data;
         }
 };
